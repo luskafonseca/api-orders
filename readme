@@ -63,23 +63,6 @@ node src/server.js
 Servidor rodando em:
 
 http://localhost:3000
-🌐 Interface de teste
-
-Uma interface simples foi criada para testar os endpoints:
-
-http://localhost:3000
-
-A página permite:
-
-Criar pedidos
-
-Buscar pedido
-
-Listar pedidos
-
-Atualizar pedidos
-
-Deletar pedidos
 
 📡 Endpoints da API
 Criar pedido
