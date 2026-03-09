@@ -1,0 +1,192 @@
+📦 Orders API – Teste Técnico
+
+API REST desenvolvida em Node.js para gerenciamento de pedidos.
+Permite criar, consultar, listar, atualizar e deletar pedidos, com persistência em MongoDB Atlas.
+
+🚀 Tecnologias utilizadas
+
+Node.js
+
+Express
+
+MongoDB Atlas
+
+Mongoose
+
+Bootstrap (interface simples para testes)
+
+📁 Estrutura do projeto
+api-orders
+│
+├─ src
+│   ├─ controllers
+│   │   orderController.js
+│   │
+│   ├─ models
+│   │   orderModel.js
+│   │
+│   ├─ routes
+│   │   orderRoutes.js
+│   │
+│   ├─ database
+│   │   db.js
+│   │
+│   └─ server.js
+│
+├─ public
+│   index.html
+│
+├─ package.json
+└─ README.md
+⚙️ Instalação
+
+Clone o repositório:
+
+git clone https://github.com/luskafonseca/api-orders.git
+
+Entre na pasta:
+
+cd api-orders
+
+Instale as dependências:
+
+npm install
+🔑 Configuração do banco
+
+Crie um arquivo .env na raiz do projeto:
+
+MONGO_URI=mongodb+srv://usuario:senha@cluster.mongodb.net/ordersdb
+
+No arquivo db.js:
+
+mongoose.connect(process.env.MONGO_URI);
+▶️ Executar o projeto
+node src/server.js
+
+Servidor rodando em:
+
+http://localhost:3000
+🌐 Interface de teste
+
+Uma interface simples foi criada para testar os endpoints:
+
+http://localhost:3000
+
+A página permite:
+
+Criar pedidos
+
+Buscar pedido
+
+Listar pedidos
+
+Atualizar pedidos
+
+Deletar pedidos
+
+📡 Endpoints da API
+Criar pedido
+POST /order
+
+Body:
+
+{
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 10000,
+  "dataCriacao": "2023-07-19T12:24:11.5299601+00:00",
+  "items": [
+    {
+      "idItem": "2434",
+      "quantidadeItem": 1,
+      "valorItem": 1000
+    }
+  ]
+}
+Buscar pedido
+GET /order/:id
+
+Exemplo:
+
+GET /order/v10089015vdb-01
+Listar pedidos
+GET /order/list
+Atualizar pedido
+PUT /order/:id
+
+Body exemplo:
+
+{
+  "value": 5000
+}
+Deletar pedido
+DELETE /order/:id
+🔄 Transformação de dados (Mapping)
+
+A API transforma o JSON recebido antes de salvar no banco.
+
+Entrada:
+
+{
+  "numeroPedido": "v10089015vdb-01",
+  "valorTotal": 10000
+}
+
+Formato salvo no banco:
+
+{
+  "orderId": "v10089015vdb-01",
+  "value": 10000
+}
+
+Itens:
+
+idItem → productId
+quantidadeItem → quantity
+valorItem → price
+🗄 Estrutura no MongoDB
+
+Collection: orders
+
+Exemplo de documento:
+
+{
+  "orderId": "v10089015vdb-01",
+  "value": 10000,
+  "creationDate": "2023-07-19T12:24:11.529Z",
+  "items": [
+    {
+      "productId": 2434,
+      "quantity": 1,
+      "price": 1000
+    }
+  ]
+}
+🧪 Testando via CURL
+
+Criar pedido:
+
+curl --location 'http://localhost:3000/order' \
+--header 'Content-Type: application/json' \
+--data '{ 
+ "numeroPedido":"v10089015vdb-01",
+ "valorTotal":10000,
+ "dataCriacao":"2023-07-19T12:24:11.5299601+00:00",
+ "items":[
+  {
+   "idItem":"2434",
+   "quantidadeItem":1,
+   "valorItem":1000
+  }
+ ]
+}'
+📌 Funcionalidades implementadas
+Funcionalidade	Status
+Criar pedido	✅
+Buscar pedido	✅
+Listar pedidos	✅
+Atualizar pedido	✅
+Deletar pedido	✅
+Persistência no banco	✅
+👨‍💻 Autor
+
+Lucas Fonseca
