@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<title>API Orders Test</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container mt-5">
+
+<h1 class="text-center mb-4">Orders API Test</h1>
+
+<div class="row g-3">
+
+<!-- CRIAR PEDIDO -->
+<div class="col-md-4">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h5 class="card-title">Criar Pedido</h5>
+
+<input id="numeroPedido" class="form-control mb-2" placeholder="Numero Pedido">
+
+<input id="valorTotal" class="form-control mb-2" placeholder="Valor Total">
+
+<input id="idItem" class="form-control mb-2" placeholder="Id Item">
+
+<input id="quantidadeItem" class="form-control mb-2" placeholder="Quantidade">
+
+<input id="valorItem" class="form-control mb-2" placeholder="Valor Item">
+
+<button class="btn btn-primary w-100" onclick="criarPedido()">
+Criar Pedido
+</button>
+
+</div>
+</div>
+
+</div>
+
+<!-- BUSCAR PEDIDO -->
+<div class="col-md-4">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h5 class="card-title">Buscar Pedido</h5>
+
+<input id="buscarId" class="form-control mb-2" placeholder="Order ID">
+
+<button class="btn btn-warning w-100" onclick="buscarPedido()">
+Buscar
+</button>
+
+</div>
+</div>
+
+</div>
+
+<!-- LISTAR -->
+<div class="col-md-4">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h5 class="card-title">Listar Pedidos</h5>
+
+<button class="btn btn-success w-100" onclick="listarPedidos()">
+Listar
+</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-4">
+
+<div class="row g-3">
+
+<!-- ATUALIZAR -->
+<div class="col-md-6">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h5 class="card-title">Atualizar Pedido</h5>
+
+<input id="updateId" class="form-control mb-2" placeholder="Order ID">
+
+<input id="updateValor" class="form-control mb-2" placeholder="Novo Valor Total">
+
+<button class="btn btn-info w-100" onclick="atualizarPedido()">
+Atualizar
+</button>
+
+</div>
+</div>
+
+</div>
+
+<!-- DELETAR -->
+<div class="col-md-6">
+
+<div class="card shadow">
+<div class="card-body">
+
+<h5 class="card-title">Deletar Pedido</h5>
+
+<input id="deleteId" class="form-control mb-2" placeholder="Order ID">
+
+<button class="btn btn-danger w-100" onclick="deletarPedido()">
+Deletar
+</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+<hr class="my-4">
+
+<h4>Resultado</h4>
+
+<pre id="resultado" class="bg-dark text-white p-3 rounded" style="height:350px;overflow:auto;"></pre>
+
+</div>
+
+<script>
+
+const API = "http://localhost:3000";
+
+function mostrar(data){
+document.getElementById("resultado").textContent =
+JSON.stringify(data, null, 2);
+}
+
+async function criarPedido(){
+
+const numeroPedido = document.getElementById("numeroPedido").value;
+const valorTotal = document.getElementById("valorTotal").value;
+
+const idItem = document.getElementById("idItem").value;
+const quantidadeItem = document.getElementById("quantidadeItem").value;
+const valorItem = document.getElementById("valorItem").value;
+
+const response = await fetch(API + "/order", {
+
+method: "POST",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+
+numeroPedido: numeroPedido,
+valorTotal: Number(valorTotal),
+dataCriacao: new Date(),
+
+items: [
+{
+idItem: idItem,
+quantidadeItem: Number(quantidadeItem),
+valorItem: Number(valorItem)
+}
+]
+
+})
+
+});
+
+const data = await response.json();
+
+mostrar(data);
+
+}
+
+async function buscarPedido(){
+
+const id = document.getElementById("buscarId").value;
+
+const response = await fetch(API + "/order/" + id);
+
+const data = await response.json();
+
+mostrar(data);
+
+}
+
+async function listarPedidos(){
+
+const response = await fetch(API + "/order/list");
+
+const data = await response.json();
+
+mostrar(data);
+
+}
+
+async function atualizarPedido(){
+
+const id = document.getElementById("updateId").value;
+const valor = document.getElementById("updateValor").value;
+
+const response = await fetch(API + "/order/" + id, {
+
+method: "PUT",
+
+headers: {
+"Content-Type": "application/json"
+},
+
+body: JSON.stringify({
+value: Number(valor)
+})
+
+});
+
+const data = await response.json();
+
+mostrar(data);
+
+}
+
+async function deletarPedido(){
+
+const id = document.getElementById("deleteId").value;
+
+const response = await fetch(API + "/order/" + id, {
+
+method: "DELETE"
+
+});
+
+const data = await response.json();
+
+mostrar(data);
+
+}
+
+</script>
+
+</body>
+</html>
