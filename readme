@@ -32,7 +32,8 @@ api-orders
 │   │
 │   └─ server.js
 │
-│
+├─ public
+    └─ index.html
 ├─ package.json
 └─ README.md
 ⚙️ Instalação
@@ -63,6 +64,8 @@ node src/server.js
 Servidor rodando em:
 
 http://localhost:3000
+
+Com uma página simples em HTML para realizar a simulação da API
 
 📡 Endpoints da API
 Criar pedido
