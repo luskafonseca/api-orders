@@ -13,7 +13,6 @@ MongoDB Atlas
 
 Mongoose
 
-Bootstrap (interface simples para testes)
 
 📁 Estrutura do projeto
 api-orders
@@ -33,8 +32,6 @@ api-orders
 │   │
 │   └─ server.js
 │
-├─ public
-│   index.html
 │
 ├─ package.json
 └─ README.md
